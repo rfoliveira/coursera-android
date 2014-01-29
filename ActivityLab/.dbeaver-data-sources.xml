@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="mssql_ms-1391002536536-2074783336" provider="generic" driver="mssql_ms" name="MS SQL Server - LYCEUM (margaret)" create-date="1391002652401" update-date="1391002674439" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="10.12.18.10" port="1433" server="" database="LYCEUM" url="jdbc:sqlserver://10.12.18.10:1433;databaseName=LYCEUM" user="rfoliveira" password="GwUSNE5RTR4EHBwxd/c=" type="dev">
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" user="" save-password="false">
+				<property name="socks-host" value=""/>
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" user="" save-password="false">
+				<property name="port" value="22"/>
+				<property name="host" value=""/>
+				<property name="keyPath" value=""/>
+				<property name="authType" value="PASSWORD"/>
+			</network-handler>
+		</connection>
+	</data-source>
+</data-sources>
