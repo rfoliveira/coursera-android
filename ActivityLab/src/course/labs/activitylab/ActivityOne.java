@@ -120,7 +120,7 @@ public class ActivityOne extends Activity {
 		mResume++;
 		
 		// Update the user interface
-		mTvStart.setText(String.format("onResume() calls: %d", mResume));
+		mTvResume.setText(String.format("onResume() calls: %d", mResume));
 	}
 
 	@Override
