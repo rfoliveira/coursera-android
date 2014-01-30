@@ -26,10 +26,10 @@ public class ActivityOne extends Activity {
 	// onResume(), called mCreate, etc.
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called
-	private static int mCreate = 0;
-	private static int mStart = 0;
-	private static int mResume = 0;
-	private static int mRestart = 0;	
+	private int mCreate = 0;
+	private int mStart = 0;
+	private int mResume = 0;
+	private int mRestart = 0;	
 
 	// TODO: Create variables for each of the TextViews, called
     // mTvCreate, etc.
@@ -37,10 +37,6 @@ public class ActivityOne extends Activity {
 	private TextView mTvStart;
 	private TextView mTvResume;
 	private TextView mTvRestart;
-	
-	private static String getMethodName() {
-		return Thread.currentThread().getStackTrace()[3].getMethodName() + "()";
-	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,21 +74,21 @@ public class ActivityOne extends Activity {
 			// TODO:
 			// Restore value of counters from saved state
 			// Only need 4 lines of code, one for every count variable
-			
-		
+			mCreate = savedInstanceState.getInt(CREATE_KEY);
+			mStart = savedInstanceState.getInt(START_KEY);
+			mResume = savedInstanceState.getInt(RESUME_KEY);
+			mRestart = savedInstanceState.getInt(RESTART_KEY);		
 		}
 		
-		String methodName = getMethodName();
-
 		// TODO: Emit LogCat message
-		Log.i(TAG, String.format("Entered the %s method.", methodName));
+		Log.i(TAG, "Entered the onCreate() method.");
 
 		// TODO:
 		// Update the appropriate count variable
 		mCreate++;
 		
 		// Update the user interface via the displayCounts() method
-		mTvCreate.setText(String.format("%s calls: %d", methodName, mCreate));
+		mTvCreate.setText(String.format("onCreate() calls: %d", mCreate));
 	}
 
 	// Lifecycle callback overrides
@@ -101,81 +97,69 @@ public class ActivityOne extends Activity {
 	public void onStart() {
 		super.onStart();
 		
-		String methodName = getMethodName();
-
 		// TODO: Emit LogCat message
-		Log.i(TAG, String.format("Entered the %s method.", methodName));
+		Log.i(TAG, "Entered the onStart() method.");
 
 		// TODO:
 		// Update the appropriate count variable
 		mStart++;
 		
 		// Update the user interface
-		mTvStart.setText(String.format("%s calls: %d", methodName, mStart));
+		mTvStart.setText(String.format("onStart() calls: %d", mStart));
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		
-		String methodName = getMethodName();
-
 		// TODO: Emit LogCat message
-		Log.i(TAG, String.format("Entered the %s method.", methodName));
+		Log.i(TAG, "Entered the onResume() method.");
 
 		// TODO:
 		// Update the appropriate count variable
 		mResume++;
 		
 		// Update the user interface
-		mTvStart.setText(String.format("%s calls: %d", methodName, mResume));
+		mTvStart.setText(String.format("onResume() calls: %d", mResume));
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		
-		String methodName = getMethodName();
-
 		// TODO: Emit LogCat message
-		Log.i(TAG, String.format("Entered the %s method.", methodName));
+		Log.i(TAG, "Entered the onPause() method.");
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
 		
-		String methodName = getMethodName();
-
 		// TODO: Emit LogCat message
-		Log.i(TAG, String.format("Entered the %s method.", methodName));
+		Log.i(TAG, "Entered the onStop() method.");
 	}
 
 	@Override
 	public void onRestart() {
 		super.onRestart();
 		
-		String methodName = getMethodName();
-
 		// TODO: Emit LogCat message
-		Log.i(TAG, String.format("Entered the %s method.", methodName));
+		Log.i(TAG, "Entered the onRestart() method.");
 
 		// TODO:
 		// Update the appropriate count variable
 		mRestart++;
 		
 		// Update the user interface
-		mTvRestart.setText(String.format("%s calls: %d", methodName, mRestart));
+		mTvRestart.setText(String.format("onRestart() calls: %d", mRestart));
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		
-		String methodName = getMethodName();
-
 		// TODO: Emit LogCat message
-		Log.i(TAG, String.format("Entered the %s method.", methodName));
+		Log.i(TAG, "Entered the onDestroy() method.");
 	}
 
 	@Override
@@ -183,8 +167,10 @@ public class ActivityOne extends Activity {
 		// TODO:
 		// Save state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variables
-
-
+		savedInstanceState.putInt(CREATE_KEY, mCreate);
+		savedInstanceState.putInt(START_KEY, mStart);
+		savedInstanceState.putInt(RESUME_KEY, mResume);
+		savedInstanceState.putInt(RESTART_KEY, mRestart);
 	}
 	
 	// Updates the displayed counters
@@ -192,7 +178,6 @@ public class ActivityOne extends Activity {
 		mTvCreate.setText("onCreate() calls: " + mCreate);
 		mTvStart.setText("onStart() calls: " + mStart);
 		mTvResume.setText("onResume() calls: " + mResume);
-		mTvRestart.setText("onRestart() calls: " + mRestart);
-	
+		mTvRestart.setText("onRestart() calls: " + mRestart);	
 	}
 }
