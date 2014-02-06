@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class ActivityLoaderActivity extends Activity {
 
 	static private final int GET_TEXT_REQUEST_CODE = 1;
-	static private final String URL = "http://www.google.com";
+	static private final String URL = "http://www.globo.com";
 	static private final String TAG = "Lab-Intents";
 
 	// For use with app chooser
@@ -66,9 +66,9 @@ public class ActivityLoaderActivity extends Activity {
 		Log.i(TAG,"Entered startExplicitActivation()");
 		
 		// TODO - Create a new intent to launch the ExplicitlyLoadedActivity class
-		Intent it = new Intent(this, ExplicitlyLoadedActivity.class);
+		Intent userInputIntent = new Intent(ActivityLoaderActivity.this, ExplicitlyLoadedActivity.class);
 		// TODO - Start an Activity using that intent and the request code defined above
-		startActivityForResult(it, GET_TEXT_REQUEST_CODE);
+		startActivityForResult(userInputIntent, GET_TEXT_REQUEST_CODE);
 	}
 
 	// Start a Browser Activity to view a web page or its URL
@@ -79,18 +79,18 @@ public class ActivityLoaderActivity extends Activity {
 
 		// TODO - Create a base intent for viewing a URL 
 		// (HINT:  second parameter uses parse() from the Uri class)
+		Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
 		
 		// TODO - Create a chooser intent, for choosing which Activity
 		// will carry out the baseIntent. Store the Intent in the 
 		// chooserIntent variable below. HINT: using the Intent class' 
 		// createChooser())
 		
-		Intent chooserIntent = null;
-
+		Intent chooserIntent = Intent.createChooser(urlIntent, CHOOSER_TEXT);
+		
 		Log.i(TAG,"Chooser Intent Action:" + chooserIntent.getAction());
 		// TODO - Start the chooser Activity, using the chooser intent
 		startActivity(chooserIntent);
-
 	}
 
 	@Override
@@ -102,8 +102,6 @@ public class ActivityLoaderActivity extends Activity {
 		// RESULT_OK result code and a recognized request code
 		// If so, update the Textview showing the user-entered text.
 		if ((resultCode == RESULT_OK) && (requestCode == GET_TEXT_REQUEST_CODE))
-		{
 			mUserTextView.setText(data.getStringExtra("result"));			
-		}
 	}
 }
