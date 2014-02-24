@@ -30,3 +30,5 @@ proguard/
 
 # Android properties
 *.properties
+
+*.properties
