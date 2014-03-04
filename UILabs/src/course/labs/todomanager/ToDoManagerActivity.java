@@ -56,6 +56,7 @@ public class ToDoManagerActivity extends ListActivity {
 		TextView footerView = null;
 		//TODO - Add footerView to ListView
 		footerView = (TextView)inflater.inflate(R.layout.footer_view, null);
+		getListView().addFooterView(footerView);
 
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -88,7 +89,8 @@ public class ToDoManagerActivity extends ListActivity {
 		{
 			if (resultCode == RESULT_OK)
 			{
-				//
+				ToDoItem item = new ToDoItem(data);
+				mAdapter.add(item);
 			}			
 		}
 	}
