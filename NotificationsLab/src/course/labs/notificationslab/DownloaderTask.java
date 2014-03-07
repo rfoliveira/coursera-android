@@ -12,6 +12,7 @@ import java.net.URL;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.Notification.Builder;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -165,13 +166,14 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
 
 						// TODO: Check whether the result code is RESULT_OK
 
-						if (/*change this*/ true) {
+						if (getResultCode() == Activity.RESULT_OK) {
 
 							// TODO:  If so, create a PendingIntent using the
 							// restartMainActivityIntent and set its flags
 							// to FLAG_UPDATE_CURRENT
 							
-							final PendingIntent pendingIntent = null;
+							final PendingIntent pendingIntent = PendingIntent.getActivity(
+									context, MY_NOTIFICATION_ID, restartMainActivtyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 							
 
 
@@ -186,8 +188,8 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
 							// TODO: Set the notification View's text to
 							// reflect whether or the download completed
 							// successfully
-
-
+							mContentView.setTextViewText(R.id.text, successMsg);
+							
 							
 							// TODO: Use the Notification.Builder class to
 							// create the Notification. You will have to set
@@ -195,10 +197,18 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
 							// android.R.drawable.stat_sys_warning
 							// for the small icon. You should also setAutoCancel(true). 
 
-							Notification.Builder notificationBuilder = null;
-
+							Notification.Builder notificationBuilder = new Builder(mApplicationContext);
+							notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
+							notificationBuilder.setAutoCancel(true);
+							notificationBuilder.setContent(mContentView);
+							notificationBuilder.setContentTitle("Notification title");
+							notificationBuilder.setContentText("Notification text");
+							
 							// TODO: Send the notification
-
+							NotificationManager notificationManager = 
+									(NotificationManager)mApplicationContext.getSystemService(mApplicationContext.NOTIFICATION_SERVICE);
+							notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
+							
 							
 							
 							log("Notification Area Notification sent");
