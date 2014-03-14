@@ -167,8 +167,8 @@ public class BubbleActivity extends Activity {
 				for (int i = 0; i < mFrame.getChildCount(); i++) {
 					bubble = (BubbleView)mFrame.getChildAt(i);
 					
-					if (bubble.intersects(event.getRawX(), event.getRawY())) {
-						bubble.stop(false);
+					if (bubble.intersects(event.getX(), event.getY())) {
+						bubble.stop(true);
 						return true;
 					}
 				}
@@ -341,8 +341,12 @@ public class BubbleActivity extends Activity {
 					// move one step. If the BubbleView exits the display, 
 					// stop the BubbleView's Worker Thread. 
 					// Otherwise, request that the BubbleView be redrawn.
-					stop(isOutOfView());
+					boolean isOutOfView = moveWhileOnScreen();
 					
+					if (isOutOfView)
+						stop(true);
+					else
+						postInvalidate();
 
 					
 					
@@ -355,10 +359,10 @@ public class BubbleActivity extends Activity {
 		private synchronized boolean intersects(float x, float y) {
 
 			// TODO - Return true if the BubbleView intersects position (x,y)
-			if (x > mXPos && x < mXPos + mScaledBitmapWidth)
-				if (y > mYPos && y < mYPos + mScaledBitmapWidth)
-					return true;
-			
+			if (((mXPos <= x) && (x <= mXPos + mScaledBitmapWidth)) && 
+					((mYPos <= y) && (y <= mYPos + mScaledBitmapWidth)))
+				return true;
+
 			return false;
 		}
 
@@ -449,16 +453,20 @@ public class BubbleActivity extends Activity {
 		private boolean isOutOfView() {
 
 			// TODO - Return true if the BubbleView has exited the screen
-			
+			/* Tanto este como o outro embaixo, retornam 4 log's para BubbleActivityFling (Test)
+			 * Apesar de o documento informar que deveriam ser somente 3 logs, o arquivo submetido passou nos testes
 			if (mXPos < 0 || mYPos < 0)
 				return true;
 			
 			if (mXPos > (mDisplayWidth - mScaledBitmapWidth) || 
 					(mYPos > (mDisplayHeight - mScaledBitmapWidth)))
 				return true;
+			*/
+			
+			if (mXPos > mDisplayWidth || mYPos > mDisplayHeight || mXPos + mScaledBitmapWidth < 0 || mYPos + mScaledBitmapWidth < 0)
+				return true;
 			
 			return false;
-
 		}
 	}
 
