@@ -70,7 +70,7 @@ public class PlaceBadgeContentProvider extends ContentProvider {
 			getContext().getContentResolver().notifyChange(_uri, null);
 			return _uri;
 		}
-		throw new SQLException("Failed to add record into" + uri);
+		throw new SQLException("Failed to add record into " + uri);
 	}
 
 	@Override

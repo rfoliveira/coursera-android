@@ -49,7 +49,7 @@ public class PlaceViewActivity extends ListActivity implements
 	// A fake location provider used for testing
 	private MockLocationProvider mMockLocationProvider;
 	
-	private static final int URL_LOADER = 0;
+	private static final int URL_LOADER = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,13 +129,13 @@ public class PlaceViewActivity extends ListActivity implements
 		// TODO - Check NETWORK_PROVIDER for an existing location reading.
 		// Only keep this last reading if it is fresh - less than 5 minutes old.
 		Location location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		
+				
 		if (location != null) {
 			if (age(location) < FIVE_MINS) {
 				mLastLocationReading = location;
 			}
 		}
-		
+				
 		// TODO - Register to receive location updates from NETWORK_PROVIDER
 		mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, mMinTime, mMinDistance, this);
 	}
@@ -157,7 +157,7 @@ public class PlaceViewActivity extends ListActivity implements
 
 		mCursorAdapter.add(place);
 	}
-
+	
 	@Override
 	public void onLocationChanged(Location currentLocation) {
 
@@ -246,7 +246,7 @@ public class PlaceViewActivity extends ListActivity implements
 			mCursorAdapter.removeAllViews();
 			return true;
 		case R.id.place_one:
-			mMockLocationProvider.pushLocation(37.422, -122.084);
+			mMockLocationProvider.pushLocation(37.422, -122.084);			
 			return true;
 		case R.id.place_invalid:
 			mMockLocationProvider.pushLocation(0, 0);

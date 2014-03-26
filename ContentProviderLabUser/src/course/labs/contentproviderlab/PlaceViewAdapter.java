@@ -69,8 +69,13 @@ public class PlaceViewAdapter extends CursorAdapter {
 			// getPlaceRecordFromCursor() method to add the
 			// current place to the list
 			list.clear();
-			list.add(getPlaceRecordFromCursor(newCursor));
-	            
+			
+			if (newCursor.moveToFirst()) {
+				do {
+					list.add(getPlaceRecordFromCursor(newCursor));
+				} while (newCursor.moveToNext());
+			}			
+			
 	        // Set the NotificationURI for the new cursor
 			newCursor.setNotificationUri(mContext.getContentResolver(),
 					PlaceBadgesContract.CONTENT_URI);
@@ -142,7 +147,6 @@ public class PlaceViewAdapter extends CursorAdapter {
 			// TODO - Insert new record into the ContentProvider
 			ContentValues newValues = new ContentValues();
 			
-			newValues.put(PlaceBadgesContract._ID, list.indexOf(listItem));
 			newValues.put(PlaceBadgesContract.FLAG_BITMAP_PATH, listItem.getFlagBitmapPath());
 			newValues.put(PlaceBadgesContract.COUNTRY_NAME, listItem.getCountryName());
 			newValues.put(PlaceBadgesContract.PLACE_NAME, listItem.getPlace());
