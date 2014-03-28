@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+/*
 The iRemember source code (henceforth referred to as "iRemember") is
 copyrighted by Mike Walker, Adam Porter, Doug Schmidt, and Jules White
 at Vanderbilt University and the University of Maryland, Copyright (c)
 2014, all rights reserved.  Since iRemember is open-source, freely
 available software, you are free to use, modify, copy, and
-distribute -perpetually and irrevocably- the source code and object code
+distribute--perpetually and irrevocably--the source code and object code
 produced from the source, as well as copy and distribute modified
 versions of this software. You must, however, include this copyright
 statement along with any code built using iRemember that you release. No
@@ -45,46 +44,81 @@ University of Maryland. This license grants no permission to call
 products or services derived from the iRemember source, nor does it
 grant permission for the name Vanderbilt University or
 University of Maryland to appear in their names.
--->
+ */
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/storyListViewLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+package edu.vuum.mocca.orm;
 
-    <!-- Row for Buttons -->
+import java.util.ArrayList;
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="3dp" >
+import android.content.ContentValues;
+import android.database.Cursor;
+import edu.vuum.mocca.provider.MoocSchema;
 
-        <Button
-            android:id="@+id/story_listview_create"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:onClick="test"
-            android:text="@string/story_list_button_label_add" />
+/**
+ * TagsCreator is a helper class that does convenience functions for converting
+ * between the Custom ORM objects, ContentValues, and Cursors.
+ * 
+ * @author Michael A. Walker
+ * 
+ */
+public class TagsCreator {
 
-    </LinearLayout>
+	/**
+	 * Create a ContentValues from a provided TagsData.
+	 * 
+	 * @param data
+	 *            StoryData to be converted.
+	 * @return ContentValues that is created from the StoryData object
+	 */
+	public static ContentValues getCVfromTags(final TagsData data) {
+		ContentValues rValue = new ContentValues();
+		rValue.put(MoocSchema.Tags.Cols.LOGIN_ID, data.loginId);
+		rValue.put(MoocSchema.Tags.Cols.STORY_ID, data.storyId);
+		rValue.put(MoocSchema.Tags.Cols.TAG, data.tag);
+		return rValue;
+	}
 
-    <EditText
-        android:id="@+id/story_listview_tags_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/story_list_filter_hint" >
+	/**
+	 * Get all of the TagsData from the passed in cursor.
+	 * 
+	 * @param cursor
+	 *            passed in cursor
+	 * @return ArrayList<TagsData\> The set of TagsData
+	 */
+	public static ArrayList<TagsData> getTagsDataArrayListFromCursor(
+			Cursor cursor) {
+		ArrayList<TagsData> rValue = new ArrayList<TagsData>();
+		if (cursor != null) {
+			if (cursor.moveToFirst()) {
+				do {
+					rValue.add(getTagsDataFromCursor(cursor));
+				} while (cursor.moveToNext() == true);
+			}
+		}
+		return rValue;
+	}
 
-        <requestFocus />
-    </EditText>
+	/**
+	 * Get the first TagsData from the passed in cursor.
+	 * 
+	 * @param cursor
+	 *            passed in cursor
+	 * @return TagsData object
+	 */
+	public static TagsData getTagsDataFromCursor(Cursor cursor) {
 
-    <ListView
-        android:id="@+id/android:list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </ListView>
+		long rowID = cursor.getLong(cursor
+				.getColumnIndex(MoocSchema.Tags.Cols.ID));
+		long loginId = cursor.getLong(cursor
+				.getColumnIndex(MoocSchema.Tags.Cols.LOGIN_ID));
+		long storyId = cursor.getLong(cursor
+				.getColumnIndex(MoocSchema.Tags.Cols.STORY_ID));
+		String tag = cursor.getString(cursor
+				.getColumnIndex(MoocSchema.Tags.Cols.TAG));
 
-</LinearLayout>
+		// construct the returned object
+		TagsData rValue = new TagsData(rowID, loginId, storyId, tag);
+
+		return rValue;
+	}
+}

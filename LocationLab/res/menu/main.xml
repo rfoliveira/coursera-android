@@ -20,4 +20,8 @@
 		android:id="@+id/place_two"
         android:title="@string/place_two"/>
     
+    <item
+		android:id="@+id/place_brasil_rio_de_janeiro"
+        android:title="@string/place_brasil_rio_de_janeiro"/>
+    
 </menu>

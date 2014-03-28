@@ -228,7 +228,7 @@ public class StoryViewFragment extends Fragment {
 			// as a ringtone and play it back as such. Use the RingtonManager function getRingtone on
 			// the audioLinkPath to create the ringtone
 			
-			final Ringtone ringtone = RingtoneManager.getRingtone(getActivity().getApplicationContext(), Uri.parse(audioLinkPath));
+			final Ringtone ringtone = RingtoneManager.getRingtone(getActivity(), Uri.parse(audioLinkPath));
 			
 			audioButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -247,7 +247,7 @@ public class StoryViewFragment extends Fragment {
 			// and the video view already set up in the layout file.
 			
 			// TODO - ok - Create a new MediaController for this activity 
-			MediaController mediaController = new MediaController(getActivity().getApplicationContext());		
+			MediaController mediaController = new MediaController(getActivity());		
 
 			// TODO - ok - The MediaController needs an anchorview. Anchor the Media Controller
 			// to the VideoView, videoLinkView, with the function setAnchorView()

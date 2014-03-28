@@ -207,6 +207,10 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		case R.id.place_two:
 			mMockLocationProvider.pushLocation(38.996667, -76.9275);
 			return true;
+		case R.id.place_brasil_rio_de_janeiro:	
+			// Brasil - Rio de Janeiro - Maracanã
+			mMockLocationProvider.pushLocation(-22.911896, -43.221737);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

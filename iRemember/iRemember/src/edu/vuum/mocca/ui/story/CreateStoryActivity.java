@@ -258,11 +258,12 @@ public class CreateStoryActivity extends StoryActivityBase {
 
 		// TODO - ok - Set the imagePath for this image file using the pre-made function
 		// getOutputMediaFile to create a new filename for this specific image;
-		String filename = getOutputMediaFile(MEDIA_TYPE_IMAGE).toString();
+		Uri fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+		fragment.imagePath = fileUri;
 		
 		// TODO - ok - Add the filename to the Intent as an extra. Use the Intent-extra name
 		// from the MediaStore class, EXTRA_OUTPUT
-		it.putExtra(MediaStore.EXTRA_OUTPUT, filename);		
+		it.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);		
 		
 		// TODO - ok - Start a new activity for result, using the new intent and the request
 		// code CAMERA_PIC_REQUEST
@@ -279,16 +280,16 @@ public class CreateStoryActivity extends StoryActivityBase {
 		
 		// TODO - ok - Set the fileUri for this video file using the pre-made function
 		// getOutputMediaFile to create a new filename for this specific video;
-		String filename = getOutputMediaFile(MEDIA_TYPE_VIDEO).toString();
+		Uri fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
 		
 		// TODO - ok - Add the filename to the Intent as an extra. Use the Intent-extra name
 		// from the MediaStore class, EXTRA_OUTPUT
-		it.putExtra(MediaStore.EXTRA_OUTPUT, filename);
+		it.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		
 		// TODO - ok - Specify as an extra that the video quality should be HIGH. Use the
 		// Intent-extra name, EXTRA_VIDEO_QUALITY, from the MediaStore class
 		// set the video image quality to high 
-		it.putExtra("EXTRA_VIDEO_QUALITY", MediaStore.EXTRA_VIDEO_QUALITY);
+		it.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 		
 		// TODO - ok - Start a new activity for result, using the new intent and the request
 		// code CAMERA_VIDEO_REQUEST
