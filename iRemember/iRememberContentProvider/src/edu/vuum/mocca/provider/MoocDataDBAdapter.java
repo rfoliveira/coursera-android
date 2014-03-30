@@ -190,6 +190,10 @@ public class MoocDataDBAdapter {
             final String sortOrder) {
 
         // TODO: Perform a query on the database with the given parameters
+    	Cursor c = db.query(true, table, projection, selection, selectionArgs, null, null, sortOrder, null, null);
+    	
+    	if (c.getCount() > 0)
+    		return c;
         
         return null;
     }

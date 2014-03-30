@@ -84,7 +84,7 @@ University of Maryland to appear in their names.
     <ListView
         android:id="@+id/android:list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content" >
     </ListView>
 
 </LinearLayout>
